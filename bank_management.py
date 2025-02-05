@@ -69,17 +69,17 @@ class SavingAccount(BankAccount):
         super().showBalance()
 
     def deposit(self, amount: int) -> None:
-        if self.isDepositedMoney(amount):  # Check if the deposit amount is valid
+        if super().isDepositedMoney(amount):  # Check if the deposit amount is valid
             self.balance += amount  # Use the setter to update balance
 
     def withdraw(self, amount: int) -> None:
-        if self.isBalanceSufficient(amount):  # Check if the balance is sufficient
+        if super().isBalanceSufficient(amount):  # Check if the balance is sufficient
             self.balance -= amount  # Use the setter to update balance
 
     def transferMoney(self, amount: int, account) -> None:
-        if self.isBalanceSufficient(amount):  # Check if the balance is sufficient
-            self.balance -= amount  # Use the setter to deduct balance
-            account.balance += amount  # Use the setter to add balance to the other account
+        if super().isBalanceSufficient(amount):  # Check if the balance is sufficient
+            self.withdraw(amount)  # Use the withdraw method to deduct balance
+            self.deposit(amount)  # Use the deposit method to add balance to the other account
 
     def annualCharges(self) -> str:
         return "No charges for the saving account."
@@ -92,38 +92,44 @@ class CreditAccount(BankAccount):
         super().showBalance()
 
     def deposit(self, amount: int) -> None:
-        if self.isDepositedMoney(amount):  # Check if the deposit amount is valid
+        if super().isDepositedMoney(amount):  # Check if the deposit amount is valid
             self.balance += amount  # Use the setter to update balance
 
     def withdraw(self, amount: int) -> None:
-        if self.isBalanceSufficient(amount):  # Check if the balance is sufficient
+        if super().isBalanceSufficient(amount):  # Check if the balance is sufficient
             self.balance -= amount  # Use the setter to update balance
 
     def transferMoney(self, amount: int, account) -> None:
         if self.isBalanceSufficient(amount):  # Check if the balance is sufficient
-            self.balance -= amount  # Use the setter to deduct balance
-            account.balance += amount  # Use the setter to add balance to the other account
+            self.withdraw(amount)  # Use the withdraw method to deduct balance
+            self.deposit(amount)  # Use the deposit method to add balance to the other account
 
     def annualCharges(self) -> int:
         return super().CREDIT_CARD_CHARGE_PER_YEAR + super().DEBIT_CARD_CHARGE_PER_YEAR
 
-harsh_savings = SavingAccount('Harsh', 15000, 9, 21)
-harsh_credit = CreditAccount('Harsh', 1500000, 7, 21)
 
-harsh_savings.showBalance()
-harsh_credit.showBalance()
 
-harsh_savings.deposit(10000)
-harsh_credit.deposit(100000)
-harsh_savings.showBalance()
-harsh_credit.showBalance()
+def main() -> None:
+    harsh_savings = SavingAccount('Harsh', 15000, 9, 21)
+    harsh_credit = CreditAccount('Harsh', 1500000, 7, 21)
 
-harsh_savings.transferMoney(1000, harsh_credit)
+    harsh_savings.showBalance()
+    harsh_credit.showBalance()
 
-harsh_savings.showBalance()
-harsh_credit.showBalance()
+    harsh_savings.deposit(10000)
+    harsh_credit.deposit(100000)
+    harsh_savings.showBalance()
+    harsh_credit.showBalance()
 
-harsh_credit.annualCharges()
+    harsh_savings.transferMoney(1000, harsh_credit)
 
-harsh_savings.annualCharges()
+    harsh_savings.showBalance()
+    harsh_credit.showBalance()
+
+    harsh_credit.annualCharges()
+
+    harsh_savings.annualCharges()
+
+if '__name__' == '__main__':
+    main()
 
