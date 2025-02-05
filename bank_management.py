@@ -76,10 +76,10 @@ class SavingAccount(BankAccount):
         if super().isBalanceSufficient(amount):  # Check if the balance is sufficient
             self.balance -= amount  # Use the setter to update balance
 
-    def transferMoney(self, amount: int, account) -> None:
+    def transferMoney(self, amount: int, account: BankAccount) -> None:
         if super().isBalanceSufficient(amount):  # Check if the balance is sufficient
             self.withdraw(amount)  # Use the withdraw method to deduct balance
-            self.deposit(amount)  # Use the deposit method to add balance to the other account
+            account.deposit(amount)  # Use the deposit method to add balance to the other account
 
     def annualCharges(self) -> str:
         return "No charges for the saving account."
@@ -99,10 +99,10 @@ class CreditAccount(BankAccount):
         if super().isBalanceSufficient(amount):  # Check if the balance is sufficient
             self.balance -= amount  # Use the setter to update balance
 
-    def transferMoney(self, amount: int, account) -> None:
+    def transferMoney(self, amount: int, account: BankAccount) -> None:
         if self.isBalanceSufficient(amount):  # Check if the balance is sufficient
             self.withdraw(amount)  # Use the withdraw method to deduct balance
-            self.deposit(amount)  # Use the deposit method to add balance to the other account
+            account.deposit(amount)  # Use the deposit method to add balance to the other account
 
     def annualCharges(self) -> int:
         return super().CREDIT_CARD_CHARGE_PER_YEAR + super().DEBIT_CARD_CHARGE_PER_YEAR
@@ -130,6 +130,6 @@ def main() -> None:
 
     harsh_savings.annualCharges()
 
-if '__name__' == '__main__':
+if __name__ == '__main__':
     main()
 
