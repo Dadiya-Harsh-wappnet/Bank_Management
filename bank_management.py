@@ -107,8 +107,8 @@ class CreditAccount(BankAccount):
     def annualCharges(self) -> int:
         return super().CREDIT_CARD_CHARGE_PER_YEAR + super().DEBIT_CARD_CHARGE_PER_YEAR
 
-harsh_savings = SavingAccount('Harsh', 15000, 9, 21)
-harsh_credit = CreditAccount('Harsh', 1500000, 7, 21)
+harsh_savings = SavingAccount('Harsh Dadiya', 15000, 9, 21)
+harsh_credit = CreditAccount('Harsh Dadiya', 1500000, 7, 21)
 
 harsh_savings.showBalance()
 harsh_credit.showBalance()
